@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad de Ensayos Clínicos · Mama y Ginecología - CHUIMI</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: radial-gradient(circle at top left, rgba(251, 207, 232, 0.45), transparent 42%),
+                              radial-gradient(circle at top right, rgba(244, 114, 182, 0.16), transparent 38%),
+                              linear-gradient(180deg, #fff8fb 0%, #fdf2f8 45%, #fff5f9 100%);
+        }
+        .rose-shadow {
+            box-shadow: 0 10px 25px -5px rgba(219, 39, 119, 0.08), 0 4px 10px -6px rgba(190, 24, 93, 0.05);
+        }
+        .rose-shadow-hover:hover {
+            box-shadow: 0 16px 30px -8px rgba(219, 39, 119, 0.16), 0 6px 14px -6px rgba(190, 24, 93, 0.08);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- CABECERA INSTITUCIONAL -->
+    <header class="bg-gradient-to-r from-white via-pink-50/70 to-rose-100/70 border-b border-pink-200/80 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                        <span class="px-3 py-0.5 rounded-full text-xs font-semibold bg-pink-600 text-white shadow-2xs">CHUIMI · Gran Canaria</span>
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-pink-100/90 text-pink-800 border border-pink-200">Servicio de Oncología Médica</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                        Unidad de Ensayos Clínicos <span class="text-pink-600 font-semibold">· Equipo de Mama y Ginecología</span>
+                    </h1>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Plataforma de consulta clínica y comunidad canaria
+                    </p>
+                </div>
+
+                <!-- SELECTOR DE VISTA -->
+                <div class="flex bg-pink-100/80 p-1 rounded-xl border border-pink-200 self-start md:self-auto">
+                    <button onclick="switchView('medicos')" id="btn-medicos" class="px-4 py-2 rounded-lg text-xs font-semibold transition-all shadow-xs bg-pink-600 text-white flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-stethoscope"></i> Personal de salud
+                    </button>
+                    <button onclick="switchView('pacientes')" id="btn-pacientes" class="px-4 py-2 rounded-lg text-xs font-semibold transition-all text-pink-900/80 hover:text-pink-700 hover:bg-white/60 flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-user-group"></i> Pacientes y familiares
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- RESUMEN DE ENSAYOS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div class="bg-gradient-to-br from-white to-pink-50/60 rounded-2xl p-5 border border-pink-200/80 rose-shadow flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-pink-700/80">Ensayos Abiertos</p>
+                    <p id="open-count" class="text-3xl font-extrabold text-slate-900 mt-1">4</p>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-white to-rose-50/60 rounded-2xl p-5 border border-pink-200/80 rose-shadow flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-pink-700/80">Próxima Apertura</p>
+                    <p id="upcoming-count" class="text-3xl font-extrabold text-slate-900 mt-1">2</p>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE FILTROS -->
+        <div class="bg-white/95 rounded-2xl p-6 border border-pink-200/80 rose-shadow mb-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-pink-100">
+                <div>
+                    <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-filter"></i>
+                        </span>
+                        Filtrar protocolos clínicos
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Selecciona el área tumoral o busca por biomarcador específico.</p>
+                </div>
+                <button onclick="resetFilters()" class="text-xs font-semibold text-pink-700 hover:text-pink-900 transition-colors self-start md:self-auto bg-pink-50 hover:bg-pink-100 px-3.5 py-2 rounded-xl border border-pink-200 cursor-pointer">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Restablecer filtros
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Filtro Área -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-pink-900/80 mb-2">Área Clínica</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="filterArea('all')" id="filter-area-all" class="px-3 py-2 text-xs font-semibold rounded-xl border transition-all bg-pink-600 text-white border-pink-600 shadow-xs cursor-pointer">Todos</button>
+                        <button onclick="filterArea('mama')" id="filter-area-mama" class="px-3 py-2 text-xs font-semibold rounded-xl border transition-all bg-pink-50/40 text-slate-700 border-pink-200 hover:border-pink-400 hover:bg-pink-50 cursor-pointer">Cáncer de Mama</button>
+                        <button onclick="filterArea('ginecologico')" id="filter-area-ginecologico" class="px-3 py-2 text-xs font-semibold rounded-xl border transition-all bg-pink-50/40 text-slate-700 border-pink-200 hover:border-pink-400 hover:bg-pink-50 cursor-pointer">Ginecológico</button>
+                    </div>
+                </div>
+
+                <!-- Filtro Biomarcador -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-pink-900/80 mb-2">Biomarcador / Diana</label>
+                    <select id="biomarker-select" onchange="filterByBiomarker(this.value)" class="w-full text-xs font-medium bg-pink-50/40 border border-pink-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-pink-500/25 focus:border-pink-500">
+                        <option value="all">Todos los biomarcadores y dianas</option>
+                        <option value="rh-her2">RH+ / HER2-</option>
+                        <option value="esr1">Mutación ESR1</option>
+                        <option value="pik3ca">Mutación PIK3CA</option>
+                        <option value="fra">FRα Positivo</option>
+                        <option value="cdh6">CDH6</option>
+                        <option value="b7h4">B7-H4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTADO DE ESTUDIOS -->
+        <div class="space-y-6" id="studies-container">
+
+            <!-- 1. NOLEETA (MAMA) -->
+            <div class="study-card bg-white rounded-2xl border border-pink-200/80 rose-shadow rose-shadow-hover overflow-hidden transition-all hover:border-pink-400" data-area="mama" data-biomarker="rh-her2" data-status="open">
+                <div class="h-1.5 bg-gradient-to-r from-pink-500 via-rose-400 to-fuchsia-400"></div>
+                <div class="p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase bg-pink-100/80 text-pink-800 border border-pink-
